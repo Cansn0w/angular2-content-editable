@@ -1,0 +1,9 @@
+:host {
+    display: block;
+}
+
+.editor {
+    resize: none;
+    outline: none;
+    font: inherit;
+}

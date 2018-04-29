@@ -1,0 +1,41 @@
+.outer {
+    position: absolute;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .5);
+    top: 200px;
+    left: 200px;
+    transform: translate(-50%, -50%);
+    background-color: azure;
+
+    font-size: 18px;
+}
+
+.inner {
+    padding: 8px 16px;
+}
+
+.panel {
+    border: 1px solid black;
+    padding: 4px;
+    position: fixed;
+    background-color: ivory;
+    user-select: none;
+}
+
+.panel pre {
+    background-color: lightblue;
+}
+
+.monitor {
+    left: 0px;
+    bottom: 0px;
+}
+
+.control {
+    top: 0px;
+    left: 0px;
+}
+
+.log {
+    top: 0px;
+    right: 0px;
+}

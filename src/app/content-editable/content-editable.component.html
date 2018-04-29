@@ -1,0 +1,18 @@
+<ng-container *ngIf="editingEnabled; then editor; else content"></ng-container>
+
+<ng-template #editor>
+  <textarea wrap="off" class="editor" [ngModel]="textContent" (ngModelChange)="updateContent($event)"></textarea>
+</ng-template>
+
+<ng-template #content>
+  <ng-template ngFor let-snippet [ngForOf]="viewModel">
+    <ng-container [ngSwitch]="snippet.type">
+      <ng-template [ngSwitchCase]="snippetType.Text">
+        {{snippet.content}}
+      </ng-template>
+      <ng-template [ngSwitchCase]="snippetType.LineBreak">
+        <br>
+      </ng-template>
+    </ng-container>
+  </ng-template>
+</ng-template>
