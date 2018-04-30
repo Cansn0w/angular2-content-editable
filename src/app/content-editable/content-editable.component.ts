@@ -23,21 +23,30 @@ export class ContentEditableComponent {
 
   textContent: string;
 
-  viewModel: Snippet[];
-
   readonly snippetType = SnippetType;
+
+  private changed = false;
+  private viewModelCache: Snippet[];
 
   @Input('enabled') editingEnabled: boolean;
 
   @Input() set model(content: string) {
     this.textContent = content;
-    this.viewModel = ContentEditableComponent.buildViewModel(content);
+    this.changed = true;
   }
   
   @Output('modelChange') update = new EventEmitter<string>();
 
   updateContent(event) {
     this.update.emit(event);
+  }
+
+  get viewModel(): Snippet[] {
+    if (this.changed) {
+      this.viewModelCache = ContentEditableComponent.buildViewModel(this.textContent);
+      this.changed = false;
+    }
+    return this.viewModelCache;
   }
 
   static buildViewModel(content: string): Snippet[] {

@@ -5,5 +5,7 @@
 .editor {
     resize: none;
     outline: none;
+    border: none;
     font: inherit;
+    background: inherit;
 }
