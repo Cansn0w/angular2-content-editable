@@ -9,9 +9,9 @@
 </div>
 
 <div class="log panel">
-    <div>Content change log: </div>
-    <pre>{{getChangeLog()}}</pre>
-  </div>
+  <div>Content change log: </div>
+  <pre>{{getChangeLog()}}</pre>
+</div>
   
 <div class="outer">
   <app-content-editable class="inner" [model]="content" (modelChange)="contentUpdate($event)" [enabled]="isEnabled" (dblclick)="onDblclick()" (focusout)="onFocusout()"></app-content-editable>

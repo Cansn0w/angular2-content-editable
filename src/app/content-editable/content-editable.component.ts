@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 
 enum SnippetType {
-  Text, LineBreak
+  Space, Text, LineBreak
 }
 
 class Snippet {
@@ -39,9 +39,9 @@ export class ContentEditableComponent implements OnChanges {
       this.textContent = changes['model'].currentValue;
     }
     if ('enabled' in changes) {
-      if (changes['enabled'].currentValue) /* is enabled */ {
+      if (changes['enabled'].currentValue) /* enabling editing */ {
         this.updateSize(this.textContent);
-      } else /* is disabled */ {
+      } else /* disabling editing */ {
         this.viewModel = ContentEditableComponent.buildViewModel(this.textContent);
       }
     }
@@ -67,14 +67,14 @@ export class ContentEditableComponent implements OnChanges {
   }
 
   static buildViewModel(content: string): Snippet[] {
+    if (content === '') {
+      return [new Snippet(SnippetType.Space)]
+    }
     const lines = content.split('\n');
-    const model: Snippet[] = [];
-    if (lines.length > 0) {
-      model.push(new Snippet(SnippetType.Text, lines[0]));
-      for (let i = 1; i < lines.length; i++) {
-        model.push(new Snippet(SnippetType.LineBreak));
-        model.push(new Snippet(SnippetType.Text, lines[i]));
-      }
+    const model: Snippet[] = [new Snippet(SnippetType.Text, lines[0])];
+    for (let i = 1; i < lines.length; i++) {
+      model.push(new Snippet(SnippetType.LineBreak));
+      model.push(new Snippet(SnippetType.Text, lines[i]));
     }
     return model;
   }

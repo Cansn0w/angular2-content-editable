@@ -3,6 +3,9 @@
 }
 
 .editor {
+    margin: 0;
+    padding: 0;
+    display: block;
     resize: none;
     outline: none;
     border: none;

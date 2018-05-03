@@ -12,7 +12,7 @@ export class AppComponent {
 
   isEnabled = false;
 
-  content = 'content';
+  content = 'content\nLine 2\nLine 3';
 
   changeLog: string[] = [];
 
@@ -34,7 +34,7 @@ export class AppComponent {
   }
 
   onFocusout() {
-    this.isEnabled = false;
+    // this.isEnabled = false;
   }
 
   onDblclick() {

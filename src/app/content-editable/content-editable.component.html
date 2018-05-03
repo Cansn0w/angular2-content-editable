@@ -7,12 +7,9 @@
 <ng-template #content>
   <ng-template ngFor let-snippet [ngForOf]="viewModel">
     <ng-container [ngSwitch]="snippet.type">
-      <ng-template [ngSwitchCase]="snippetType.Text">
-        {{snippet.content}}
-      </ng-template>
-      <ng-template [ngSwitchCase]="snippetType.LineBreak">
-        <br>
-      </ng-template>
+      <ng-template [ngSwitchCase]="snippetType.Text">{{snippet.content}}</ng-template>
+      <ng-template [ngSwitchCase]="snippetType.LineBreak"><br></ng-template>
+      <ng-template [ngSwitchCase]="snippetType.Space">&nbsp;</ng-template>
     </ng-container>
   </ng-template>
 </ng-template>
