@@ -55,7 +55,7 @@ export class ContentEditableComponent implements OnChanges {
   updateSize(content: string) {
     const lines = content.split('\n');
     this.rows = lines.length;
-    this.cols = lines.map(line => line.length).reduce((a, b) => a > b ? a : b) + 1;
+    this.cols = Math.max(lines.map(line => line.length).reduce((a, b) => a > b ? a : b), 1);
   }
 
   focus() {

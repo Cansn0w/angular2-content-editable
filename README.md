@@ -1,5 +1,9 @@
 # Angular Editable Component
 
+[GitHub pages demo](https://cansn0w.github.io/angular2-content-editable/).
+
+Built with `ng build --prod --output-path docs --base-href "/angular2-content-editable/"`
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
 ## Development server
