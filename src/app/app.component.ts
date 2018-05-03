@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ContentEditableComponent } from './content-editable/content-editable.component';
+
+const resolvedPromise = Promise.resolve(null);
 
 @Component({
   selector: 'app-root',
@@ -12,6 +15,8 @@ export class AppComponent {
   content = 'content';
 
   changeLog: string[] = [];
+
+  @ViewChild(ContentEditableComponent) ceComponent: ContentEditableComponent;
   
   contentUpdate(event: string) {
     this.changeLog.push(
@@ -26,6 +31,15 @@ export class AppComponent {
 
   getChangeLog() {
     return this.changeLog.join('\n');
+  }
+
+  onFocusout() {
+    this.isEnabled = false;
+  }
+
+  onDblclick() {
+    this.isEnabled = true;
+    setTimeout(() => this.ceComponent.focus());
   }
 
   static escape(text: string) {

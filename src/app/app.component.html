@@ -14,5 +14,5 @@
   </div>
   
 <div class="outer">
-  <app-content-editable class="inner" [model]="content" (modelChange)="contentUpdate($event)" [enabled]="isEnabled" (dblclick)="isEnabled = true;" (focusout)="isEnabled = false;"></app-content-editable>
+  <app-content-editable class="inner" [model]="content" (modelChange)="contentUpdate($event)" [enabled]="isEnabled" (dblclick)="onDblclick()" (focusout)="onFocusout()"></app-content-editable>
 </div>

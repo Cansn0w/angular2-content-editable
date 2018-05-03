@@ -1,7 +1,7 @@
-<ng-container *ngIf="editingEnabled; then editor; else content"></ng-container>
+<ng-container *ngIf="enabled; then editor; else content"></ng-container>
 
 <ng-template #editor>
-  <textarea wrap="off" class="editor" [ngModel]="textContent" (ngModelChange)="updateContent($event)"></textarea>
+  <textarea #textarea wrap="off" class="editor" [ngModel]="textContent" (ngModelChange)="updateContent($event)" [rows]="rows" [cols]="cols"></textarea>
 </ng-template>
 
 <ng-template #content>

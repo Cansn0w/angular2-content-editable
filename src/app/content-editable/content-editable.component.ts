@@ -1,4 +1,4 @@
-import { Component, OnChanges, HostListener, ElementRef, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 
 enum SnippetType {
   Text, LineBreak
@@ -19,34 +19,51 @@ class Snippet {
   templateUrl: './content-editable.component.html',
   styleUrls: ['./content-editable.component.css']
 })
-export class ContentEditableComponent {
-
-  textContent: string;
+export class ContentEditableComponent implements OnChanges {
 
   readonly snippetType = SnippetType;
 
-  private changed = false;
-  private viewModelCache: Snippet[];
+  textContent: string;
 
-  @Input('enabled') editingEnabled: boolean;
+  viewModel: Snippet[];
+  rows: number;
+  cols: number;
 
-  @Input() set model(content: string) {
-    this.textContent = content;
-    this.changed = true;
-  }
-  
-  @Output('modelChange') update = new EventEmitter<string>();
+  @Input() enabled: boolean;
+  @Input() model: string;
+  @Output() modelChange = new EventEmitter<string>();
+  @ViewChild('textarea') textarea: ElementRef;
 
-  updateContent(event) {
-    this.update.emit(event);
-  }
-
-  get viewModel(): Snippet[] {
-    if (this.changed) {
-      this.viewModelCache = ContentEditableComponent.buildViewModel(this.textContent);
-      this.changed = false;
+  ngOnChanges(changes: SimpleChanges) {
+    if ('model' in changes) {
+      this.textContent = changes['model'].currentValue;
     }
-    return this.viewModelCache;
+    if ('enabled' in changes) {
+      if (changes['enabled'].currentValue) /* is enabled */ {
+        this.updateSize(this.textContent);
+      } else /* is disabled */ {
+        this.viewModel = ContentEditableComponent.buildViewModel(this.textContent);
+      }
+    }
+  }
+
+  updateContent(content) {
+    this.updateSize(content);
+    this.modelChange.emit(content);
+  }
+
+  updateSize(content: string) {
+    const lines = content.split('\n');
+    this.rows = lines.length;
+    this.cols = lines.map(line => line.length).reduce((a, b) => a > b ? a : b) + 1;
+  }
+
+  focus() {
+    if (this.textarea) {
+      this.textarea.nativeElement.focus();
+    } else {
+      throw new Error('Editing not enabled, cannot focus on textarea.');
+    }
   }
 
   static buildViewModel(content: string): Snippet[] {
