@@ -1,5 +1,6 @@
 :host {
     display: block;
+    white-space: nowrap;
 }
 
 .editor {
@@ -9,8 +10,12 @@
     resize: none;
     outline: none;
     border: none;
-    white-space: nowrap;
+    white-space: pre;
     overflow: hidden;
     font: inherit;
     background: inherit;
+}
+
+span {
+    white-space: pre;
 }

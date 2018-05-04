@@ -1,6 +1,6 @@
-<div class="control panel">
-  <input type="checkbox" [(ngModel)]="isEnabled" id="allowEdit"/>
-  <label for="allowEdit">enable editing</label>
+<div class="log panel">
+  <div>Content change log: </div>
+  <pre>{{getChangeLog()}}</pre>
 </div>
 
 <div class="monitor panel">
@@ -8,11 +8,11 @@
   <pre>{{content}}</pre>
 </div>
 
-<div class="log panel">
-  <div>Content change log: </div>
-  <pre>{{getChangeLog()}}</pre>
+<div class="control panel">
+  <input type="checkbox" [(ngModel)]="isEnabled" id="allowEdit"/>
+  <label for="allowEdit">enable editing</label>
 </div>
-  
+
 <div class="outer">
   <app-content-editable class="inner" [model]="content" (modelChange)="contentUpdate($event)" [enabled]="isEnabled" (dblclick)="onDblclick()" (focusout)="onFocusout()"></app-content-editable>
 </div>
