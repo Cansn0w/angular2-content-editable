@@ -2,18 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
-
+import { ContentEditableModule } from './content-editable/content-editable.module';
 import { AppComponent } from './app.component';
-import { ContentEditableComponent } from './content-editable/content-editable.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContentEditableComponent
   ],
   imports: [
     BrowserModule,
+    ContentEditableModule,
     FormsModule
   ],
   providers: [],
