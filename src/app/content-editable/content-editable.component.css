@@ -3,7 +3,8 @@
     white-space: nowrap;
 }
 
-.editor {
+textarea {
+    appearance: none;
     margin: 0;
     padding: 0;
     display: block;

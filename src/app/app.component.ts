@@ -1,14 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, DoCheck } from '@angular/core';
 import { ContentEditableComponent } from './content-editable/content-editable.component';
 
-const resolvedPromise = Promise.resolve(null);
+function escape(text: string) {
+  return text.replace(/\n/g, '\\n');
+}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements DoCheck {
 
   isEnabled = false;
 
@@ -16,11 +18,17 @@ export class AppComponent {
 
   changeLog: string[] = [];
 
+  changeDetectionCount = 0;
+
   @ViewChild(ContentEditableComponent) ceComponent: ContentEditableComponent;
-  
+
+  ngDoCheck() {
+    this.changeDetectionCount += 1;
+  }
+
   contentUpdate(event: string) {
     this.changeLog.push(
-      `${AppComponent.escape(this.content)} -> ${AppComponent.escape(event)}`
+      `${escape(this.content)} -> ${escape(event)}`
     );
     this.content = event;
 
@@ -40,9 +48,5 @@ export class AppComponent {
   onDblclick() {
     this.isEnabled = true;
     setTimeout(() => this.ceComponent.focus());
-  }
-
-  static escape(text: string) {
-    return text.replace(/\n/g, '\\n');
   }
 }
