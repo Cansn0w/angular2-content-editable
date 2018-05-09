@@ -1,8 +1,8 @@
-import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, SimpleChanges, AfterViewChecked } from '@angular/core';
+import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, SimpleChanges, AfterViewChecked, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 enum SnippetType {
-  Space, Text, LineBreak
+  Text, LineBreak
 }
 
 class Snippet {
@@ -20,31 +20,37 @@ class Snippet {
   templateUrl: './content-editable.component.html',
   styleUrls: ['./content-editable.component.css']
 })
-export class ContentEditableComponent implements AfterViewChecked {
+export class ContentEditableComponent implements AfterViewChecked, OnChanges {
 
-  private readonly snippetType = SnippetType;
   private shouldUpdateSize: boolean;
 
-  editorEnabled: boolean;
+  readonly snippetType = SnippetType;
   control = new FormControl();
-  viewModel: Snippet[];
+  viewModel: Snippet[] = [new Snippet(SnippetType.Text, ' ')];
 
   @ViewChild('textarea') private textarea: ElementRef;
 
-  @Input() model: string;
-  @Input() set enabled(isEnabled: boolean) {
-    if (isEnabled) {
-      this.initEditor();
-    } else /* disable editing */ {
-      this.initView();
-    }
-  }
-
+  @Input() model = '';
+  @Input() enabled = false;
   @Output() modelChange = new EventEmitter<string>();
 
-  updateModel(model) {
-    this.modelChange.emit(model);
-    this.updateSize();
+  constructor() {
+    this.control.valueChanges.subscribe(content => {
+      this.updateSize();
+      this.modelChange.emit(content);
+    });
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.enabled) {
+      this.control.setValue(this.model, { emitEvent: false });
+      if ('enabled' in changes) {
+        this.shouldUpdateSize = true;
+      }
+    } else /* disable editing */ {
+      this.viewModel = this.buildViewModel(this.model);
+    }
   }
 
   ngAfterViewChecked() {
@@ -52,17 +58,6 @@ export class ContentEditableComponent implements AfterViewChecked {
       this.updateSize();
       this.shouldUpdateSize = false;
     }
-  }
-
-  private initEditor() {
-    this.editorEnabled = true;
-    this.shouldUpdateSize = true;
-    this.control.setValue(this.model, { emitEvent: false });
-  }
-
-  private initView() {
-    this.editorEnabled = false;
-    this.viewModel = this.buildViewModel(this.model);
   }
 
   private updateSize() {
@@ -78,7 +73,7 @@ export class ContentEditableComponent implements AfterViewChecked {
 
   private buildViewModel(content: string): Snippet[] {
     if (content === '') {
-      return [new Snippet(SnippetType.Space)];
+      return [new Snippet(SnippetType.Text, ' ')];
     }
     const lines = content.split('\n');
     const model: Snippet[] = [new Snippet(SnippetType.Text, lines[0])];
