@@ -9,8 +9,11 @@
   <div>Content: </div>
   <pre>{{content}}</pre>
   <hr>
-  <div>Update model</div>
-  <textarea [(ngModel)]="content" class="textarea" rows="4"></textarea>
+  <input type="checkbox" [(ngModel)]="allowChange" id="modelUpdater"/>
+  <label for="modelUpdater">Update model</label>
+  <ng-template [ngIf]="allowChange">
+      <textarea [(ngModel)]="content" class="textarea" rows="4"></textarea>
+  </ng-template>
 </div>
 
 <div class="control panel">
@@ -18,6 +21,20 @@
   <label for="allowEdit">enable editing</label>
 </div>
 
-<div class="outer">
+<div class="outer" [style.top.px]="containerDims.x" [style.left.px]="containerDims.y" #container>
   <app-content-editable class="inner" [model]="content" (modelChange)="contentUpdate($event)" [enabled]="isEnabled" (dblclick)="onDblclick()" (focusout)="onFocusout()"></app-content-editable>
 </div>
+
+<svg>
+  <defs>
+      <polygon id="triangle" points="0,2 5,10 -5,10" style="fill:black; stroke:black; stroke-width:1" />
+  </defs>
+  <!-- top -->
+  <g attr.transform="translate({{containerDims.x}} {{containerDims.top}})"><use xlink:href="#triangle" transform="rotate(180 0 0)"/></g>
+  <!-- left -->
+  <g attr.transform="translate({{containerDims.left}} {{containerDims.y}})"><use xlink:href="#triangle" transform="rotate(90 0 0)"/></g>
+  <!-- bottom -->
+  <g attr.transform="translate({{containerDims.x}} {{containerDims.bottom}})"><use xlink:href="#triangle"/></g>
+  <!-- right -->
+  <g attr.transform="translate({{containerDims.right}} {{containerDims.y}})"><use xlink:href="#triangle" transform="rotate(270 0 0)"/></g>
+</svg>

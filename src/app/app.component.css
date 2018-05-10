@@ -1,8 +1,6 @@
 .outer {
     position: absolute;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .5);
-    top: 200px;
-    left: 200px;
     transform: translate(-50%, -50%);
     background-color: azure;
 
@@ -19,6 +17,7 @@
     position: fixed;
     background-color: ivory;
     user-select: none;
+    z-index: 1;
 }
 
 .panel pre {
@@ -43,4 +42,11 @@
 .log {
     top: 0px;
     right: 0px;
+}
+
+svg {
+    position: absolute;
+    overflow: visible;
+    top: 0;
+    left: 0;
 }
