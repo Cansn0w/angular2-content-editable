@@ -12,10 +12,10 @@ function escape(text: string) {
 })
 export class AppComponent implements DoCheck, OnInit {
 
+  controlEnabled = false;
+
   isEnabled = false;
   wasEnabled = this.isEnabled;
-  allowChange = false;
-
   content = 'content\n[        ]spaces\nLine    3';
 
   changeLog: string[] = [];

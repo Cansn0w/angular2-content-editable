@@ -8,20 +8,22 @@
   <hr>
   <div>Content: </div>
   <pre>{{content}}</pre>
-  <hr>
-  <input type="checkbox" [(ngModel)]="allowChange" id="modelUpdater"/>
-  <label for="modelUpdater">Update model</label>
-  <ng-template [ngIf]="allowChange">
-      <textarea [(ngModel)]="content" class="textarea" rows="4"></textarea>
-  </ng-template>
 </div>
 
 <div class="control panel">
-  <input type="checkbox" [(ngModel)]="isEnabled" id="allowEdit"/>
-  <label for="allowEdit">enable editing</label>
+  <input type="checkbox" [(ngModel)]="controlEnabled" id="controlEnabled"/>
+  <label for="controlEnabled">Enable model control<br><em><small>ngModel will trigger extra cd cycles</small></em></label>
+  <ng-template [ngIf]="controlEnabled">
+    <hr>
+    <div><label>Position X: <input type="number" [(ngModel)]="containerDims.x"></label></div>
+    <div><label>Position Y: <input type="number" [(ngModel)]="containerDims.y"></label></div>
+    <input type="checkbox" [(ngModel)]="isEnabled" id="allowEdit"/>
+    <label for="allowEdit">enable editing</label>
+    <textarea [(ngModel)]="content" class="textarea" rows="4"></textarea>
+  </ng-template>
 </div>
 
-<div class="outer" [style.top.px]="containerDims.x" [style.left.px]="containerDims.y" #container>
+<div class="outer" [style.top.px]="containerDims.y" [style.left.px]="containerDims.x" #container>
   <app-content-editable class="inner" [model]="content" (modelChange)="contentUpdate($event)" [enabled]="isEnabled" (dblclick)="onDblclick()" (focusout)="onFocusout()"></app-content-editable>
 </div>
 
