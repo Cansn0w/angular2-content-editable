@@ -2,6 +2,7 @@ import { SimpleChange } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { MarkdownModule } from '../markdown/markdown.module';
 import { ContentEditableComponent } from './content-editable.component';
 
 const TEST_STRING = 'test string.';
@@ -13,7 +14,10 @@ describe('ContentEditableComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ContentEditableComponent ],
-      imports: [ ReactiveFormsModule ],
+      imports: [
+        ReactiveFormsModule,
+        MarkdownModule
+      ],
     })
     .compileComponents();
   }));

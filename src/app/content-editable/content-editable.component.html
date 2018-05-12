@@ -5,11 +5,10 @@
 </ng-template>
 
 <ng-template #content>
-  <ng-template ngFor let-snippet [ngForOf]="viewModel">
-    <ng-container [ngSwitch]="snippet.type">
-      <ng-template [ngSwitchCase]="snippetType.Text"><span>{{snippet.content}}</span></ng-template>
-      <ng-template [ngSwitchCase]="snippetType.LineBreak"><br></ng-template>
-      <ng-template [ngSwitchCase]="snippetType.Space">&nbsp;</ng-template>
+  <ng-template ngFor let-text [ngForOf]="viewModel">
+    <ng-container [ngSwitch]="text.type">
+      <ng-template [ngSwitchCase]="textType.Text"><span>{{text.content}}</span></ng-template>
+      <ng-template [ngSwitchCase]="textType.LineBreak"><br></ng-template>
     </ng-container>
   </ng-template>
 </ng-template>

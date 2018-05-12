@@ -29,7 +29,7 @@ export class AppComponent implements DoCheck, OnInit {
     left: 200,
     right: 200,
     bottom: 200
-  }
+  };
 
   @ViewChild(ContentEditableComponent) ceComponent: ContentEditableComponent;
 

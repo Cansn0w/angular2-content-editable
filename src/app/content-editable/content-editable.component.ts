@@ -1,19 +1,7 @@
 import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, SimpleChanges, AfterViewChecked, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
-enum SnippetType {
-  Text, LineBreak
-}
-
-class Snippet {
-  type: SnippetType;
-  content?: string;
-
-  constructor(type: SnippetType, content?: string) {
-    this.type = type;
-    this.content = content;
-  }
-}
+import { TextType, Text } from '../markdown/markdown.type';
+import { MarkdownParser } from '../markdown/parser.service';
 
 @Component({
   selector: 'app-content-editable',
@@ -24,9 +12,9 @@ export class ContentEditableComponent implements AfterViewChecked, OnChanges {
 
   private shouldUpdateSize: boolean;
 
-  readonly snippetType = SnippetType;
+  readonly textType = TextType;
   control = new FormControl();
-  viewModel: Snippet[] = [new Snippet(SnippetType.Text, ' ')];
+  viewModel: Text[] = [new Text(TextType.Text, ' ')];
 
   @ViewChild('textarea') private textarea: ElementRef;
 
@@ -34,7 +22,7 @@ export class ContentEditableComponent implements AfterViewChecked, OnChanges {
   @Input() enabled = false;
   @Output() modelChange = new EventEmitter<string>();
 
-  constructor() {
+  constructor(private parser: MarkdownParser) {
     this.control.valueChanges.subscribe(content => {
       this.updateSize();
       this.modelChange.emit(content);
@@ -49,7 +37,7 @@ export class ContentEditableComponent implements AfterViewChecked, OnChanges {
         this.shouldUpdateSize = true;
       }
     } else /* disable editing */ {
-      this.viewModel = this.buildViewModel(this.model);
+      this.viewModel = this.parser.parse(this.model);
     }
   }
 
@@ -69,18 +57,5 @@ export class ContentEditableComponent implements AfterViewChecked, OnChanges {
 
   public focus() {
     this.textarea.nativeElement.focus();
-  }
-
-  private buildViewModel(content: string): Snippet[] {
-    if (content === '') {
-      return [new Snippet(SnippetType.Text, ' ')];
-    }
-    const lines = content.split('\n');
-    const model: Snippet[] = [new Snippet(SnippetType.Text, lines[0])];
-    for (let i = 1; i < lines.length; i++) {
-      model.push(new Snippet(SnippetType.LineBreak));
-      model.push(new Snippet(SnippetType.Text, lines[i]));
-    }
-    return model;
   }
 }

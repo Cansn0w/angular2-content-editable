@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { ContentEditableModule } from './content-editable/content-editable.module';
 import { ContentEditableComponent } from './content-editable/content-editable.component';
+import { MarkdownModule } from './markdown/markdown.module';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
@@ -10,6 +11,7 @@ describe('AppComponent', () => {
       declarations: [ AppComponent ],
       imports: [
         ContentEditableModule,
+        MarkdownModule,
         FormsModule
       ]
     }).compileComponents();
@@ -54,6 +56,7 @@ describe('Integrated content editable Component', () => {
       declarations: [ AppComponent ],
       imports: [
         ContentEditableModule,
+        MarkdownModule,
         FormsModule
       ]
     }).compileComponents();
