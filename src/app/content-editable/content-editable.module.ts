@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MarkdownModule } from '../markdown/markdown.module';
+import { TextFormatterModule } from '../text-formatter/text-formatter.module';
 
 import { ContentEditableComponent } from './content-editable.component';
 
@@ -9,7 +9,7 @@ import { ContentEditableComponent } from './content-editable.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MarkdownModule
+    TextFormatterModule
   ],
   declarations: [
     ContentEditableComponent

@@ -2,7 +2,7 @@ import { SimpleChange } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { MarkdownModule } from '../markdown/markdown.module';
+import { TextFormatterModule } from '../text-formatter/text-formatter.module';
 import { ContentEditableComponent } from './content-editable.component';
 
 const TEST_STRING = 'test string.';
@@ -16,7 +16,7 @@ describe('ContentEditableComponent', () => {
       declarations: [ ContentEditableComponent ],
       imports: [
         ReactiveFormsModule,
-        MarkdownModule
+        TextFormatterModule
       ],
     })
     .compileComponents();
@@ -41,10 +41,7 @@ describe('ContentEditableComponent', () => {
   it('should render content when editing is disabled', async(() => {
     component.model = TEST_STRING;
     component.enabled = false;
-    component.ngOnChanges({
-      'model': new SimpleChange(undefined, TEST_STRING, true),
-      'enabled': new SimpleChange(undefined, false, true)
-    });
+    component.ngOnChanges();
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.textContent).toEqual(TEST_STRING);

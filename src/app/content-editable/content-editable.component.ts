@@ -1,7 +1,5 @@
-import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, SimpleChanges, AfterViewChecked, OnChanges } from '@angular/core';
+import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, AfterViewChecked, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { TextType, Text } from '../markdown/markdown.type';
-import { MarkdownParser } from '../markdown/parser.service';
 
 @Component({
   selector: 'app-content-editable',
@@ -20,7 +18,7 @@ export class ContentEditableComponent implements AfterViewChecked, OnChanges {
   @Input() enabled = false;
   @Output() modelChange = new EventEmitter<string>();
 
-  constructor(private parser: MarkdownParser) {
+  constructor() {
     this.control.valueChanges.subscribe(content => {
       this.updateSize();
       this.modelChange.emit(content);
@@ -28,7 +26,7 @@ export class ContentEditableComponent implements AfterViewChecked, OnChanges {
 
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (this.enabled) {
       this.control.setValue(this.model, { emitEvent: false });
       this.shouldUpdateSize = true;

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { TextType, Text } from './markdown.type';
+import { TextType, Text } from './text-formatter.type';
 
 @Injectable()
-export class MarkdownParser {
+export class SimpleFormatter {
   parse(content: string): Text[] {
     if (content === '') {
       return [new Text(TextType.Text, ' ')];

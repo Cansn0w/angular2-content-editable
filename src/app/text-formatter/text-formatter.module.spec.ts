@@ -1,10 +1,10 @@
-import { MarkdownModule } from './markdown.module';
+import { TextFormatterModule } from './text-formatter.module';
 
 describe('MarkdownModule', () => {
-  let markdownModule: MarkdownModule;
+  let markdownModule: TextFormatterModule;
 
   beforeEach(() => {
-    markdownModule = new MarkdownModule();
+    markdownModule = new TextFormatterModule();
   });
 
   it('should create an instance', () => {
