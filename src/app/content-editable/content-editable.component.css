@@ -1,6 +1,5 @@
 :host {
     display: block;
-    white-space: nowrap;
 }
 
 textarea {
@@ -15,8 +14,4 @@ textarea {
     overflow: hidden;
     font: inherit;
     background: inherit;
-}
-
-span {
-    white-space: pre;
 }

@@ -5,10 +5,5 @@
 </ng-template>
 
 <ng-template #content>
-  <ng-template ngFor let-text [ngForOf]="viewModel">
-    <ng-container [ngSwitch]="text.type">
-      <ng-template [ngSwitchCase]="textType.Text"><span>{{text.content}}</span></ng-template>
-      <ng-template [ngSwitchCase]="textType.LineBreak"><br></ng-template>
-    </ng-container>
-  </ng-template>
+  <app-markdown [model]='model'></app-markdown>
 </ng-template>

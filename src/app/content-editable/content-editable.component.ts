@@ -12,9 +12,7 @@ export class ContentEditableComponent implements AfterViewChecked, OnChanges {
 
   private shouldUpdateSize: boolean;
 
-  readonly textType = TextType;
   control = new FormControl();
-  viewModel: Text[] = [new Text(TextType.Text, ' ')];
 
   @ViewChild('textarea') private textarea: ElementRef;
 
@@ -33,11 +31,7 @@ export class ContentEditableComponent implements AfterViewChecked, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.enabled) {
       this.control.setValue(this.model, { emitEvent: false });
-      if ('enabled' in changes) {
-        this.shouldUpdateSize = true;
-      }
-    } else /* disable editing */ {
-      this.viewModel = this.parser.parse(this.model);
+      this.shouldUpdateSize = true;
     }
   }
 
