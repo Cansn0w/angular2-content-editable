@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { TextType, Text } from './text-formatter.type';
 
 @Injectable()
-export class SimpleFormatter {
+export abstract class Formatter {
+  abstract parse(content: string): Text[];
+}
+
+@Injectable()
+export class SimpleFormatter implements Formatter {
   parse(content: string): Text[] {
     if (content === '') {
       return [new Text(TextType.Text, ' ')];

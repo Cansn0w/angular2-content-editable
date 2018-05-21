@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TextFormatterComponent } from './text-formatter.component';
-import { SimpleFormatter } from './formatter.service';
+import { Formatter, SimpleFormatter } from './formatter.service';
 
 describe('TextFormatterComponent', () => {
   let component: TextFormatterComponent;
@@ -10,7 +10,9 @@ describe('TextFormatterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TextFormatterComponent ],
-      providers: [ SimpleFormatter ]
+      providers: [
+        { provide: Formatter, useClass: SimpleFormatter }
+       ]
     })
     .compileComponents();
   }));

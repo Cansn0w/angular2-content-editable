@@ -1,13 +1,13 @@
 export enum TextType {
-    Text, LineBreak
+  Text, LineBreak
 }
 
 export class Text {
-    type: TextType;
-    content?: string;
+  type: TextType;
+  content?: string;
 
-    constructor(type: TextType, content?: string) {
-      this.type = type;
-      this.content = content;
-    }
+  constructor(type: TextType, content?: string) {
+    this.type = type;
+    this.content = content;
   }
+}

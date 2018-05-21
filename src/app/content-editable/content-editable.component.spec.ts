@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TextFormatterModule } from '../text-formatter/text-formatter.module';
 import { ContentEditableComponent } from './content-editable.component';
+import { Formatter, SimpleFormatter } from '../text-formatter/formatter.service';
 
 const TEST_STRING = 'test string.';
 
@@ -18,6 +19,9 @@ describe('ContentEditableComponent', () => {
         ReactiveFormsModule,
         TextFormatterModule
       ],
+      providers: [
+        { provide: Formatter, useClass: SimpleFormatter }
+       ]
     })
     .compileComponents();
   }));

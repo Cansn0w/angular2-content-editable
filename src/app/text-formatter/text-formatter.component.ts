@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TextType, Text } from './text-formatter.type';
-import { SimpleFormatter } from './formatter.service';
+import { Formatter } from './formatter.service';
 
 @Component({
   selector: 'app-text-formatter',
@@ -16,5 +16,5 @@ export class TextFormatterComponent {
     this.viewModel = this.parser.parse(model);
   }
 
-  constructor(private parser: SimpleFormatter) { }
+  constructor(private parser: Formatter) { }
 }
